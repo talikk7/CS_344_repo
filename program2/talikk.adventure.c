@@ -69,22 +69,44 @@ char* current_room;
 char* next_room;
 char* last_room;
 
-//constructor functions for the rooms
-//
+/***************************************************
+ * Room creation functions
+ * ************************************************/
 
+
+//This will assign all of the rooms names (as 
+//signified by a number from 1-10) and link each room
+//to each other so the whole graph of the maze is 
+//connected
 void _init_rooms( struct forest* the_forest ){
 
 }
 
+
+//this will give each of the rooms all of the connections
+//specified (between 3-6 per room) and will need to link
+//back to the origonal room (room A will connect to room B
+//and vice versa)
+//
 void _finalize_connections( struct forest* the_forest ){
 
 
 }
 
+//This will give each of the rooms in the forest a room
+//type from 0,1,2
+//
+//	0 == START_ROOM
+// 1 == MID_ROOM
+// 2 == END_ROOM
 void _add_room_type( struct forest* the_forest ){
 
 }
 
+
+//This will
+//
+//1. create a directory
 void _print_room_files( struct forest* the_forest ){
 	
 }

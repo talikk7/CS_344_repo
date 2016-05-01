@@ -102,14 +102,17 @@ void _init_rooms( struct forest* the_forest ){
 		}
 
 
-		//adds the next room as a connection to the current room
-		next_room = (rand()%10) + 1 ;
-		link_index = (*the_forest).rooms[i].link_count;
-		(*the_forest).rooms[i].connections[ link_index ] = next_room;
-		(*the_forest).rooms[i].link_count++;
+		//For the last room, it will not make a new connection
+		if (i != 6){
+			//adds the next room as a connection to the current room
+			next_room = (rand()%10) + 1 ;
+			link_index = (*the_forest).rooms[i].link_count;
+			(*the_forest).rooms[i].connections[ link_index ] = next_room;
+			(*the_forest).rooms[i].link_count++;
 
-		//sets the last room to the current room
-		last_room = current_room;
+			//sets the last room to the current room
+			last_room = current_room;
+		}
 	}
 
 }
@@ -122,6 +125,60 @@ void _init_rooms( struct forest* the_forest ){
 //
 void _finalize_connections( struct forest* the_forest ){
 
+	int i;
+	int numRooms = sizeof( (*the_forest).curr_room_list ) / sizeof( int) 
+	struct room* roomTeemp;	
+	int viableRooms[ 7 ]; //max numbers of rooms
+   int k= 0; //an index for the viable rooms
+	int j = 0; //counter for second loop
+	int m = 0; //yet another counter...
+	int n = 0;
+	int marker; //marks to see if there is a choice int a loop
+
+
+	//For each of the rooms, we will see if we need to 
+	//add more connections (We need 3-6 randomly between
+	//each room)
+	for( i = 0; i < numRooms; i++){
+
+		roomTemp = (*the_forest).rooms[ i ];
+
+
+		
+		if( (*roomTemp).link_count < 3 ){ //we need to add more connections
+
+			//Creating a list of connections
+			//we will use this as an iterator when connecting the rooms
+			srand(time(NULL));
+			int newConnections =( rand() % 6 ) + 4  //range from 3-6 I PRESUME
+			newConnections = newConnections - (*roomTemp).link_count;
+
+			//make a list of names (represented by numbers) to represent
+			// a collection of viable rooms
+			// rooms that have == 6 are not viable
+			//rooms that have already been connected to the room are not viable
+			
+				for ( n = 0; n < numRooms; n++){
+					int roomNameTemp = (*the_forest).curr_name_list[ n ]
+
+					for( m = 0; m < (*roomTemp).link_count; m++){
+
+						if ( (*roomTemp).connections[ m ] == roomNameTemp ){
+							break;
+						}
+							
+						if( (*the_forest).rooms[ roomNameTemp  ].link_count != 6 ){
+							viableRooms[ k ] = roomNameTemp;
+							k++;
+						}	
+					} 
+				}
+
+			//Now comes the actual linking
+			//DONT GO OUT OF RANGE ON THE VIABLE ROom array
+			//the loop limit is whatever is smaller; the
+			//size of viableRoom array or the #of connections we need to add
+			
 
 }
 
